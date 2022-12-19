@@ -1,0 +1,326 @@
+main::[]->[Int]:{
+
+	Opt::Int;
+	
+	show: "\n <************** LENGUAJES Y AUTÓMATAS II **************> \n";
+	show: "\n <************** (._.) MENÚ (._.) **************> \n";
+	
+	show: "◔_◔ Número menor y mayor.";
+	show: "◔_◔ Ordenar arreglo de 10 números.";
+	show: "◔_◔ Calcular la media, mediana y moda de 10 números.";
+	show: "◔_◔ Discos.";
+	show: "ಥ_ಥ Salir\n";
+	show: "Selecciona una opción: "; 
+	load:Opt;
+	
+	[$Opt != 5]@
+	{
+	
+		[$Opt = 1]?
+		{
+			R, num, greather:Int;
+			Totaln::Int;
+			less::Int;
+			
+			show: "Cuantos números deseas ingresar?";
+			load: Totaln;
+			
+			R:1;
+			greather:0;
+			less:0;
+			
+			[$R <= $Totaln]@
+			{
+				show: "\nIngresa un número: ";
+				load: num;
+				
+				[$R = 1]?
+				{
+					greather:$num;
+					less:$num;
+				}	
+				[$num > $greather]|?
+				{
+					greather:$num;
+					
+				}
+				[$num < $less]|?
+				{
+					less:$num;
+				}
+				
+				R +: 1;
+			}
+			
+			show: "\nEl número mayor es: ", $greather;
+			show: "\nEl número menor es: ", $less;
+			show: "";
+			
+		}[$Opt = 2]|?
+		{
+			less::Int;
+			num::Int;
+			temp::Int;
+		
+			Arreglo:Int[10];	
+			
+			show: "Ingresa 10 números: \n";
+
+                        [ i:0 \ $i<=9 \ i:$i + 1 ]@
+                        {
+                                show: "Ingresa un número: ";
+                                load: num;
+                                Arreglo:[$i,$num];
+                        }
+			show: " ";
+                        [ j:0 \ $j<=9 \ j:$j + 1 ]@
+                        {	
+				n::Int;
+				n: $j + 1;
+				
+	                        [ t:0 \ $t<=8 \ t:$t + 1 ]@
+                                {
+					[$Arreglo[$t] < $Arreglo[$n]]?
+					{
+						temp: $Arreglo[ $n ];
+						Arreglo[$n]:$Arreglo[$t];
+						Arreglo[$t]:$temp;
+					}
+                                }            
+                        }		
+			show: " ";
+			show: "Arreglo ordenado";
+			show: " ";
+                        [ t:9 \ $t>=0 \ t:$t - 1 ]@
+                        {
+
+                                show: $Arreglo, $t;
+                        }
+                        
+			
+		}[$Opt = 3]|?{
+		
+			Opt2::Int;
+	
+			show: "\n<********MENÚ********>\n";
+			
+			show: "ʘ‿ʘ Calcular la moda.";
+			show: "ʘ‿ʘ Calcular la mediana.";
+			show: "ʘ‿ʘ Calcular la media.";
+			show: "ಥ_ಥ Regresar al menú principal.\n";
+			show: "Elige una opción: "; 
+			load:Opt2;
+			
+			[$Opt2 != 4]@
+			{
+				[$Opt2 = 1]?
+				{
+					Arreglo:Int[10];
+					Auxi:Int[10];	
+					Conta::Int;
+					Posicion::Int;
+					Numero::Int;
+					Conta2::Int;
+					greatherPos::Int;		
+					Num::Int;
+					NumGreather::Int;
+					Q::Int;
+					Q:0;
+					
+				        show: "Ingresa 10 números \n";
+				
+				        [ i:0 \ $i<10 \ i:$i + 1 ]@
+				        {
+				                show: "Ingresa un número";
+				                load: Num;
+				                Arreglo:[$i,$Num];
+				        }
+
+					[ Conta:0 \ $Conta<=9 \ Conta:$Conta + 1 ]@
+				        {
+				                Auxi[$Conta]:0;
+				        }
+			
+				        [ Conta:0 \ $Conta<10 \ Conta:$Conta + 1 ]@
+					{                                     
+						Numero:$Arreglo[ $Conta ];
+						Posicion:$Conta;
+						[ Conta2:$Conta \ $Conta2<=9 \ Conta2:$Conta2 + 1 ]@
+					        {
+				                     [$Arreglo[$Conta2]=$Numero]?
+						     {
+							Auxi[ $Posicion ]+: 1;
+						     }
+
+					        }
+				        }
+				        
+					NumGreather: $Auxi[ $Q ];
+					
+					greatherPos:0;
+	
+					[ Conta:0 \ $Conta<=9 \ Conta:$Conta + 1 ]@
+				        {
+				                [$Auxi[ $Conta ] > $NumGreather]?
+						{
+							greatherPos:$Conta;
+							NumGreather:$Auxi[$Conta];
+						}
+				        }
+				
+					show: "\nResultado de la moda: ";
+					show: $Arreglo , $greatherPos;
+				
+				}[$Opt2 = 2]|?
+				{
+					Arreglo:Int[10];
+					Flg::Int;
+					temp::Int;
+					Flg: 0;
+					nu::Int;
+					Num::Int;
+					
+					show: "Ingresa 10 números\n";
+				
+				        [ i:0 \ $i<10 \ i:$i + 1 ]@
+				        {
+				                show: "Ingresa un número: ";
+				                load: Num;
+				                Arreglo:[$i,$Num];
+				        }
+				        
+				       [ j:0 \ $j<=9 \ j:$j + 1 ]@
+				        {	
+						nu::Int;
+						nu: $j + 1;
+						
+					        [ t:0 \ $t<=8 \ t:$t + 1 ]@
+				                {
+							[$Arreglo[$t] < $Arreglo[$nu]]?
+							{
+								temp: $Arreglo[ $nu ];
+								Arreglo[$nu]:$Arreglo[$t];
+								Arreglo[$t]:$temp;
+							}
+				                }            
+				        }		
+					show: " ";
+					show: "Números ingresados";
+					show: " ";
+				        [ t:9 \ $t>=0 \ t:$t - 1 ]@
+				        {
+				                show: $Arreglo, $t;
+				        }
+					show: "\nResultado de la mediana: ";
+					show: $Arreglo,5;
+					show: "y";
+					show: $Arreglo,4;
+	
+				}[$Opt2 = 3]|?
+				{
+					Arreglo:Int[10];	
+					suma::Int;
+					numb::Int;
+					media::Dec;
+					media:0;
+					suma:0;
+					numb:0;
+			
+					show: "Ingresa 10 números\n";
+
+					[ i:0 \ $i<=9 \ i:$i + 1 ]@
+					{
+						show: "Ingresa un número: ";
+						load: numb;
+						Arreglo:[$i,$numb];
+					}
+					show: " ";	
+					
+					[ Conta:0 \ $Conta<=9 \ Conta:$Conta + 1 ]@
+				        {
+
+				               suma +: $Arreglo[$Conta];
+
+				        }
+		
+					media: $suma / 10.0;
+					
+					show: "Resultado de la media: ",$media;
+	
+				}|{
+					show: "\nError\n"; 
+			
+				}
+				
+				show: "\n<******** MENÚ ********>\n";
+			
+				show: "ʘ‿ʘ Calcular la moda.";
+				show: "ʘ‿ʘ Calcular la mediana.";
+				show: "ʘ‿ʘ Calcular la media.";
+				show: "ಥ_ಥ Regresar al menú principal.\n";
+				show: "Elige una opción: "; 
+				load:Opt2;
+			
+			}
+
+		}[$Opt = 4]|?{
+			<+show: "Programa 4";+>
+			R, numDisco ,masEscuchado:Int;
+                        Totaln::Int;
+                        menosEscuchado::Int;
+
+                        show: "Cuantos discos deseas ingresar?";
+                        load: Totaln;
+
+                        R:1;
+                        masEscuchado:0;
+                        menosEscuchado:0;
+
+                        [$R <= $Totaln]@
+                        {
+                                show: "\nIngresa un disco: ";
+                                load: numDisco;
+
+                                [$R = 1]?
+                                {
+                                        masEscuchado:$numDisco;
+                                        menosEscuchado:$numDisco;
+                                }       
+                                [$numDisco > $masEscuchado]|?
+                                {
+					masEscuchado:$numDisco;
+                                }
+                                [$numDisco < $menosEscuchado]|?
+                                {
+					menosEscuchado:$numDisco;
+                                }
+                                
+                                R +: 1;
+                        }
+                        
+                        show: "\nEl disco más escuchado es el: ", $masEscuchado;
+                        show: "\nEl disco menos escuchado es el: ", $menosEscuchado;
+                        show: "";
+                }|{
+			show: "\nError\n"; 
+			
+		}
+		
+		show: "\n <************** LENGUAJES Y AUTÓMATAS II **************> \n";
+		show: "\n <************** (._.) MENÚ (._.) **************> \n";
+
+	
+		show: "◔_◔ Número menor y mayor.";
+		show: "◔_◔ Arreglo ordenado de 10 números.";
+		show: "◔_◔ Calcular la media, mediana y moda de 10 números.";
+		show: "◔_◔ Discos.";
+		show: "ಥ_ಥ Salir.\n";
+		show: "Selecciona una opción: "; 
+		load:Opt;
+		
+	}
+	
+	
+	answer:0;
+}
+
